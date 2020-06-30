@@ -151,6 +151,26 @@ $(window).on('load', function() {
       } else {
         markers.push(null);
       }
+      
+      // EDIT HERE FOR ROUTES
+      
+      if ( !isNaN(parseFloat(c['Lat2'])) && !isNaN(parseFloat(c['Lon2']))) {
+        var lat = parseFloat(c['Lat2']);
+        var lon = parseFloat(c['Lon2']);
+
+        chapterCount += 1;
+        
+        L.Routing.control({
+          waypoints: [
+            L.latLng(57.74, 11.94),
+            L.latLng(57.6792, 11.949)
+          ]
+        }).addTo(map);
+
+      } else {
+        markers.push(null);
+      }
+      
 
       // Add chapter container
       var container = $('<div></div>', {
