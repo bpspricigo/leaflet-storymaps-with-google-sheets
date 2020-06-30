@@ -161,10 +161,11 @@ $(window).on('load', function() {
         chapterCount += 1;
         
         L.Routing.control({
-          waypoints: [
-            L.latLng(57.74, 11.94),
-            L.latLng(57.6792, 11.949)
-          ]
+            waypoints: [
+              L.latLng(-27.5948698, -48.5482195),
+              L.latLng(-26.2834213, -48.8452269)
+            ],
+          router: L.Routing.mapbox('pk.eyJ1IjoiYnJ1bm9zcHJpY2lnbyIsImEiOiJja2MxNWlkZnIxcWpiMnNxZGh0MDA1cGplIn0.DtvfecDO-DwrG-TcRPzWdw')
         }).addTo(map);
 
       } else {
