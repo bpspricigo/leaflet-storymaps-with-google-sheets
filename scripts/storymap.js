@@ -74,6 +74,7 @@ $(window).on('load', function() {
     L.tileLayer.provider(basemap, {
       maxZoom: 18
     }).addTo(map);
+    map.scrollWheelZoom.enable();
   }
 
   function initMap(options, chapters) {
@@ -105,6 +106,7 @@ $(window).on('load', function() {
     }
 
     var markers = [];
+    var routes = [];
 
     var markActiveColor = function(k) {
       /* Removes marker-active class from all markers */
@@ -147,26 +149,40 @@ $(window).on('load', function() {
             interactive: c['Marker'] === 'Hidden' ? false : true,
           }
         ));
+          
+        if ( !isNaN(parseFloat(c['Lat2'])) && !isNaN(parseFloat(c['Lon2']))) {
+          var lat2 = parseFloat(c['Lat2']);
+          var lon2 = parseFloat(c['Lon2']);
+          
+          markers.push(
+            L.marker([lat2, lon2], {
+              icon: L.ExtraMarkers.icon({
+                icon: 'fa-number',
+                number: c['Marker'] === 'Plain' ? '' : chapterCount+1,
+                markerColor: c['Marker Color'] || 'blue'
+              }),
+              opacity: c['Marker'] === 'Hidden' ? 0 : 0.9,
+              interactive: c['Marker'] === 'Hidden' ? false : true,
+            }
+          ));
 
-      } else {
-        markers.push(null);
-      }
-      
-      // EDIT HERE FOR ROUTES
-      
-      if ( !isNaN(parseFloat(c['Lat2'])) && !isNaN(parseFloat(c['Lon2']))) {
-        var lat = parseFloat(c['Lat2']);
-        var lon = parseFloat(c['Lon2']);
+          console.log("Entrou");
 
-        chapterCount += 1;
-        
-        L.Routing.control({
-            waypoints: [
-              L.latLng(-27.5948698, -48.5482195),
-              L.latLng(-26.2834213, -48.8452269)
-            ],
-          router: L.Routing.mapbox('pk.eyJ1IjoiYnJ1bm9zcHJpY2lnbyIsImEiOiJja2MxNWlkZnIxcWpiMnNxZGh0MDA1cGplIn0.DtvfecDO-DwrG-TcRPzWdw')
-        }).addTo(map);
+          routes.push(
+            L.Routing.control({
+              waypoints: [
+                L.latLng(lat, lon),
+                L.latLng(lat2, lon2)
+              ],
+            router: L.Routing.mapbox('pk.eyJ1IjoiYnJ1bm9zcHJpY2lnbyIsImEiOiJja2MxNWlkZnIxcWpiMnNxZGh0MDA1cGplIn0.DtvfecDO-DwrG-TcRPzWdw'),
+            
+            // HIDE MARKERS ON ROUTES
+            createMarker: function() { return null; }
+            })
+          );
+        } else {
+          routes.push(null);
+        }
 
       } else {
         markers.push(null);
@@ -417,6 +433,23 @@ $(window).on('load', function() {
         bounds.push(markers[i].getLatLng());
       }
     }
+    
+    // Adding Routes to the map
+    
+    for (i in routes) {
+      if (routes[i]) {
+        routes[i].addTo(map);
+        console.log("Entrou 2");
+        //markers[i]['_pixelsAbove'] = pixelsAbove[i];
+        //markers[i].on('click', function() {
+        //  var pixels = parseInt($(this)[0]['_pixelsAbove']) + 5;
+        //  $('div#contents').animate({
+        //    scrollTop: pixels + 'px'});
+        //};
+        //bounds.push(routes[i].getLatLng());
+      }
+    }
+    
     map.fitBounds(bounds);
 
     $('#map, #narration, #title').css('visibility', 'visible');
