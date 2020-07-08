@@ -6,9 +6,9 @@ Supports images, audio and video embeddings, and Leaflet TileLayer/geojson overl
   <img src="./leaflet-storymaps-demo.gif" title="Storymaps demo" />
 </p>
 
-## [Live Demo](https://bpspricigo.github.io/leaflet-storymaps-with-google-sheets/)
-- The map is hosted by GitHub and can be found at https://handsondataviz.github.io/leaflet-storymaps-with-google-sheets/
-- Google Sheets https://docs.google.com/spreadsheets/d/13Q0DjzKnbuXsHyk2SwXEogtKEEBkBmWre6ZKmn6LNdg/
+## [My Version](https://bpspricigo.github.io/leaflet-storymaps-with-google-sheets/)
+- Using this Google Sheets https://docs.google.com/spreadsheets/d/13Q0DjzKnbuXsHyk2SwXEogtKEEBkBmWre6ZKmn6LNdg/
+- The original map is hosted by GitHub and can be found at https://handsondataviz.github.io/leaflet-storymaps-with-google-sheets/
 
 ## Create Your Own
 - See step-by-step tutorial in *Hands-On Data Visualization* https://HandsOnDataViz.org/leaflet-storymaps-with-google-sheets.html
